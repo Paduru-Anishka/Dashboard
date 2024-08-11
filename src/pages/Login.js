@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,11 +9,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Dummy login validation
-    if (email && password) {
+    const isAuthenticated = authService.login(email, password);
+    if (isAuthenticated) {
       navigate('/');
     } else {
-      alert('Please enter email and password.');
+      alert('Invalid email or password.');
     }
   };
 
